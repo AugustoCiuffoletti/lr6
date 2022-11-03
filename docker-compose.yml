@@ -34,6 +34,13 @@ services:
     environment:
       - USER=user
       - PASSWORD=user
+  dhcp-server:
+    image: networkboot/dhcpd
+    volumes:
+      - ./data:/data
+    networks:
+      locale:
+        ipv4_address: 172.16.3.4
   nginx-server:
     image: nginx
     container_name: web-server
@@ -44,7 +51,7 @@ services:
       - ./web-content:/usr/share/nginx/html
     networks:
       locale:
-        ipv4_address: 172.16.3.4
+        ipv4_address: 172.16.3.5
 networks:
   locale:
     driver: bridge
