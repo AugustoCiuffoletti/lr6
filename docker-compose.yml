@@ -1,0 +1,53 @@
+version: "2.2"
+
+services:
+  desktop:
+    image: mastrogeppetto/lr6_desktop:amd64-latest
+    container_name: lr6_desktop
+    hostname: desktop
+    privileged: true  # needed to run wireshark
+    ports:
+      - "2022:22"
+      - "6080:6080"
+    volumes:
+      - ./shared:/home/user/Desktop/shared
+      - ./ssh-keys/desktop:/home/user/.ssh
+      - ./web-content:/home/user/Desktop/web-content
+    networks:
+      locale:
+        ipv4_address: 172.16.3.2
+    environment:
+      - USER=user
+      - PASSWORD=user
+  server:
+    image: mastrogeppetto/lr6_server:amd64-latest
+    container_name: lr6_server
+    hostname: server
+    ports:
+      - "2023:22"
+    volumes:
+      - ./shared:/home/user/shared
+      - ./ssh-keys/server:/home/user/.ssh
+    networks:
+      locale:
+        ipv4_address: 172.16.3.3
+    environment:
+      - USER=user
+      - PASSWORD=user
+  nginx-server:
+    image: nginx
+    container_name: web-server
+    hostname: web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web-content:/usr/share/nginx/html
+    networks:
+      locale:
+        ipv4_address: 172.16.3.4
+networks:
+  locale:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.16.3.0/24
