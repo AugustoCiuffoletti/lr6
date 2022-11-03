@@ -37,7 +37,7 @@ services:
   dhcp-server:
     image: networkboot/dhcpd
     volumes:
-      - ./data:/data
+      - ./dhcp-data:/data
     networks:
       locale:
         ipv4_address: 172.16.3.4
