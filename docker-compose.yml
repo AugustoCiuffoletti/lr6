@@ -7,7 +7,6 @@ services:
     hostname: desktop
     privileged: true  # needed to run wireshark
     ports:
-      - "2022:22"
       - "6080:6080"
     volumes:
       - ./shared:/home/user/Desktop/shared
