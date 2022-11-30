@@ -2,7 +2,7 @@ version: "2.2"
 
 services:
   desktop:
-    image: mastrogeppetto/lr6_desktop:amd64-latest
+    image: mastrogeppetto/lr6_desktop:stable
     container_name: lr6_desktop
     hostname: desktop
     privileged: true  # needed to run wireshark
@@ -19,7 +19,7 @@ services:
       - USER=user
       - PASSWORD=user
   server:
-    image: mastrogeppetto/lr6_server:amd64-latest
+    image: mastrogeppetto/lr6_server:stable
     container_name: lr6_server
     hostname: server
     ports:
